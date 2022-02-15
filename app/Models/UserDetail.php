@@ -10,6 +10,7 @@ class UserDetail extends Model
     use HasFactory;
     protected $table = 'user_details';
     protected $fillable = ['first_name', 'last_name','phone_number'];
+    public $timestamps = false;
 
     public function country()
     {
