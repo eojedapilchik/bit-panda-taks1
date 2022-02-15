@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/users/active/{country_name?}', [UserController::class, 'showActiveByCountry'])->name('active_users');
 
 Route::put('user_details/{id}', [UserDetailController::class, 'editIfExists'])->name('user_details.edit');
+
+Route::delete('/users/{user}', [UserController::class, 'deleteUserNoDetails'])->name('delete_users');

@@ -15,5 +15,15 @@ class UserController extends Controller
             $user->where('citizenship_country_id', $country_id);
         })->get();
     }
+
+    public function deleteUserNoDetails(User $user)
+    {
+        if(!$user->userDetail){
+            $user->delete();
+            return response()->json("deleted", 204);
+        }
+        return response()->json("Not Found or Cannot be deleted", 404);
+       
+    }
     
 }
