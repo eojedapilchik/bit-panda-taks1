@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Country;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserController extends Controller
 {
@@ -18,12 +19,13 @@ class UserController extends Controller
 
     public function deleteUserNoDetails(User $user)
     {
-        if(!$user->userDetail){
+
+    
+    if(!$user->userDetail){
             $user->delete();
-            return response()->json("deleted", 204);
+            return response()->json("Deleted",204);
         }
         return response()->json("Not Found or Cannot be deleted", 404);
-       
     }
     
 }

@@ -15,7 +15,7 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
+         \Illuminate\Auth\AuthenticationException::class,
         \Illuminate\Auth\Access\AuthorizationException::class,
         \Symfony\Component\HttpKernel\Exception\HttpException::class,
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
@@ -41,23 +41,31 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
-    }
-
-    public function render($request, Exception $exception)
-    {
-        // This will replace our 404 response with
-        // a JSON response.
-        if ($exception instanceof ModelNotFoundException &&
-            $request->wantsJson())
-        {
+        $this->renderable(function (Exception $e, $request) {
+        if ($request->is('api/*')) {
             return response()->json([
-                'data' => 'Resource not found'
+                'message' => 'Not found.'
             ], 404);
         }
-
-        return parent::render($request, $exception);
+    });
     }
+
+    // public function render($request, Exception $exception)
+    // {
+    //     // This will replace our 404 response with
+    //     // a JSON response.
+    //     if ($exception instanceof ModelNotFoundException &&
+    //         $request->wantsJson())
+    //     {
+    //         return response()->json([
+    //             'data' => 'Resource not found'
+    //         ], 404);
+    //     }
+
+    //     return parent::render($request, $exception);
+    // }
+
+
+
+
 }
