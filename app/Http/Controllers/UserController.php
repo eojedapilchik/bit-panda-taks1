@@ -19,11 +19,9 @@ class UserController extends Controller
 
     public function deleteUserNoDetails(User $user)
     {
-
-    
-    if(!$user->userDetail){
-            $user->delete();
-            return response()->json("Deleted",204);
+        if(!$user->userDetail){
+                $user->delete();
+                return response()->json("Deleted",204);
         }
         return response()->json("Not Found or Cannot be deleted", 404);
     }
