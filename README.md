@@ -1,64 +1,102 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><h2>Web Service App for User - Bitpanda Task 1</h2></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## About the App
 
-## About Laravel
+This app was made with Laravel by Alcides Ojeda
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+V 0.1  
+Date: 16/02/2022
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# REST API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The REST API to the example app is described below.
 
-## Learning Laravel
+## Get Active User by Country
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Request
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`GET /api/users/active/Austria`
 
-## Laravel Sponsors
+    GET http://localhost:8000//api/users/active/Austria
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Response
 
-### Premium Partners
+    Users and their user details
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Content-Type: application/json
 
-## Contributing
+```yaml
+[
+    {
+        "id": 5,
+        "email": "andreas@yahoo.de",
+        "active": 1,
+        "created_at": "2020-01-19T16:08:59.000000Z",
+        "updated_at": "2020-01-19T16:08:59.000000Z",
+        "user_detail":
+            {
+                "id": 3,
+                "user_id": 5,
+                "citizenship_country_id": 3,
+                "first_name": "Andreas",
+                "last_name": "Snow",
+                "phone_number": "004366455555555",
+            },
+    },
+]
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Update user details just if the user details are there already
 
-## Code of Conduct
+### Request
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`PUT /api/user_details/id`
 
-## Security Vulnerabilities
+    PUT http://localhost:8000/api/user_details/1
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Response
 
-## License
+    Returns user details updated
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Content-Type: application/json
+
+```yaml
+{
+    "id": 1,
+    "user_id": 1,
+    "citizenship_country_id": 1,
+    "first_name": "Ojeda",
+    "last_name": "Alec",
+    "phone_number": "0043664111111",
+}
+```
+
+## Delete a user just if no user details exist yet.
+
+### Request
+
+`DELETE /api/users/id`
+
+    DELETE http://localhost:8000/api/users/10
+
+### Response
+
+    Returns user details updated
+
+    HTTP/1.1 204 NO CONTENT
+    Status: 204 NO CONTENT
+
+## Installation in local Env.
+
+-   Clone this Repository
+-   Create Database bitpanda and user.
+-   Run composer `composer install` in the root folder of the app
+-   Run `php artisan db:seed`
+-   Run server with the command `php artisan serve`
+
+NOTE:  
+make sure to have the database dump files inside the database/seeders folder
