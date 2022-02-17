@@ -85,7 +85,7 @@ The REST API to the example app is described below.
 
 ### Response
 
-    Returns user details updated
+    Returns No content if user was deleted
 
     HTTP/1.1 204 NO CONTENT
     Status: 204 NO CONTENT
